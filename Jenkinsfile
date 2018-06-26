@@ -5,6 +5,12 @@ node {
         git url: 'https://github.com/jordanglassman/forrester-module-a.git'
     }
 
+    stage('build') {
+        withMaven(maven: 'Maven350') {
+            sh "mvn clean package"
+        }
+    }
+
     if(params.FAIL_BUILD) {
         currentBuild.result = 'FAILURE'
         error('build failed due to UNSTABLE_BUILD param setting')
